@@ -42,10 +42,9 @@ export const HeaderLogoContainer = styled("div")`
 `;
 
 export const FooterContainer = styled("div")`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 10;
   background: #171717;
   width: 100%;
 `;
@@ -66,7 +65,7 @@ export const BottomFooter = styled("div")`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 10px 20px;
 `;
 
 export const BottomFooterLeft = styled("div")`
