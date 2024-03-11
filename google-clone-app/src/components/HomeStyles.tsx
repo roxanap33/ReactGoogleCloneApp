@@ -40,3 +40,65 @@ export const HeaderLogoContainer = styled("div")`
     object-fit: contain;
   }
 `;
+
+export const FooterContainer = styled("div")`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background: #171717;
+  width: 100%;
+`;
+
+export const UpperFooter = styled("div")`
+  border-bottom: 1px solid #3c4043;
+  font-size: 15px;
+  color: #e8eaed;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-family: arial, sans serif;
+  font-size: 15px;
+  padding: 15px 30px;
+`;
+
+export const BottomFooter = styled("div")`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 20px;
+`;
+
+export const BottomFooterLeft = styled("div")`
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  a {
+    font-family: arial, sans serif;
+    font-size: 14px;
+    text-decoration: none;
+    color: #e8eaed;
+    padding: 15px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+export const BottomFooterRight = styled("div")`
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  a {
+    font-family: arial, sans serif;
+    font-size: 14px;
+    text-decoration: none;
+    color: #e8eaed;
+    padding: 15px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
