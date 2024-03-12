@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MicrofonIcon,
   SearchButtons,
@@ -11,23 +11,34 @@ import {
   TextSectionContainer,
 } from "./SearchInputStyles";
 import { Tooltip } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SearchInput() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  function handleSearch(event: any) {
+    event.preventDefault();
+    navigate(`/search?${searchTerm}`);
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSearch}>
       <div>
         <SearchContainer>
           <SearchInputContainer>
             <SearchIcon />
-            <SearchTextArea />
+            <SearchTextArea
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
             <Tooltip title="Search by voice">
               <MicrofonIcon />
             </Tooltip>
           </SearchInputContainer>
         </SearchContainer>
         <SearchButtonsContainer>
-          <SearchButtons>Google Search</SearchButtons>
+          <SearchButtons type="submit">Google Search</SearchButtons>
           <SearchButtons>I'm Feeling Lucky</SearchButtons>
         </SearchButtonsContainer>
         <TextSectionContainer>
