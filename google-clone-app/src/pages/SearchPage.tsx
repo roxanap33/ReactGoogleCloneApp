@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   SearhcPageHeaderContainer,
   SearchHeaderWrapper,
@@ -9,12 +9,40 @@ import {
   SearchPageHeaderSubMenu,
   SubMenuElement,
 } from "../components/SearchPageStyles";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { Avatar, IconButton, Tooltip } from "@mui/material";
 import { Apps, MoreVert, Settings } from "@mui/icons-material";
+import { db } from "../firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
+interface SearchResult {
+  id: string;
+  title: string;
+}
 
 export default function SearchPage() {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const value = queryParams.get("key");
+  const [results, setResults] = useState<SearchResult[]>([]);
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      if (value) {
+        const q = query(collection(db, `results/${value}/${value}`));
+        const querySnapshot = await getDocs(q);
+        const resultsArray: SearchResult[] = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          title: doc.data().title as string,
+        }));
+        setResults(resultsArray);
+      }
+    };
+
+    fetchResults();
+  }, []);
+
   return (
     <>
       <SearhcPageHeaderContainer>
@@ -77,6 +105,11 @@ export default function SearchPage() {
           <Link to="/more">More</Link>
         </SubMenuElement>
       </SearchPageHeaderSubMenu>
+      <div>
+        {results.map((result, index) => (
+          <div key={index}>{result.title}</div>
+        ))}
+      </div>
     </>
   );
 }

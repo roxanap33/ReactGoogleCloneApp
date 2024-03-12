@@ -19,7 +19,7 @@ export const SearchInputContainer = styled("div")`
   width: 60%;
 `;
 
-export const SearchTextArea = styled("textarea")`
+export const SearchInputArea = styled("input")`
   flex: 1;
   background-color: rgba(32, 33, 36, 1);
   border: none;

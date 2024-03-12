@@ -26,7 +26,7 @@ export const SearchPageInput = styled("div")`
       justify-content: flex-start;
       margin-bottom: 22px;
 
-      textarea {
+      input {
         width: 550px;
       }
     }
