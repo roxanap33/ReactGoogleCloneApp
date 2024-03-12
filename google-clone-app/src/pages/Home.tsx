@@ -56,7 +56,7 @@ export default function Home() {
       <HeaderLogoContainer>
         <img src="google-white-logo.png" alt="google-logo" />
         <div>
-          <SearchInput />
+          <SearchInput showButtons={true} showText={true} />
         </div>
       </HeaderLogoContainer>
       <FooterContainer>
