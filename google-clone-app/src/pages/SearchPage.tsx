@@ -6,11 +6,13 @@ import {
   SearchPageLogo,
   SearchPageHeaderRight,
   SearchPageInput,
+  SearchPageHeaderSubMenu,
+  SubMenuElement,
 } from "../components/SearchPageStyles";
 import { Link } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { Avatar, IconButton, Tooltip } from "@mui/material";
-import { Apps, Settings } from "@mui/icons-material";
+import { Apps, MoreVert, Settings } from "@mui/icons-material";
 
 export default function SearchPage() {
   return (
@@ -64,6 +66,17 @@ export default function SearchPage() {
           </SearchPageHeaderRight>
         </SearchHeaderWrapper>
       </SearhcPageHeaderContainer>
+      <SearchPageHeaderSubMenu>
+        <Link to="/all">All</Link>
+        <Link to="/images">Images</Link>
+        <Link to="/videos">Videos</Link>
+        <Link to="/news">News</Link>
+        <Link to="/books">Books</Link>
+        <SubMenuElement>
+          <MoreVert />
+          <Link to="/more">More</Link>
+        </SubMenuElement>
+      </SearchPageHeaderSubMenu>
     </>
   );
 }
