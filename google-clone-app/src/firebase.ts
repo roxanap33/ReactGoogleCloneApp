@@ -21,20 +21,4 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-const googleProvider = new GoogleAuthProvider();
-
-export const signInWithGoogle = () => {
-  signInWithPopup(auth, googleProvider)
-    .then((result) => {
-      const name: any = result.user.displayName;
-      const email: any = result.user.email;
-      const profilePicture: any = result.user.photoURL;
-      //console.log(result);
-      localStorage.setItem("name", name);
-      localStorage.setItem("email", email);
-      localStorage.setItem("profilePicture", profilePicture);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+export const googleProvider = new GoogleAuthProvider();

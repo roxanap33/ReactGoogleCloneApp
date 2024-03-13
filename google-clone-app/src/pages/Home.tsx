@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   HeaderContainer,
   HeaderLogoContainer,
@@ -15,8 +15,26 @@ import { Avatar, Tooltip, IconButton } from "@mui/material";
 import { Apps } from "@mui/icons-material";
 import SearchInput from "../components/SearchInput";
 import LogoDisplay from "../components/LogoDisplay";
-import { signInWithGoogle } from "../firebase";
+import { auth, googleProvider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
 export default function Home() {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const name: any = result.user.displayName;
+        const email: any = result.user.email;
+        const profilePicture: any = result.user.photoURL;
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email);
+        localStorage.setItem("profilePicture", profilePicture);
+
+        setIsSignedIn(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
       <HeaderContainer>
@@ -38,18 +56,21 @@ export default function Home() {
           </Tooltip>
           <Tooltip title="Google Account">
             <IconButton>
-              <Avatar
-                sx={{
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "50%",
-                  cursor: "pointer",
-                  color: "#ffffff",
-                  backgroundColor: "#8ab4f8",
-                }}
-              >
-                RC
-              </Avatar>
+              {isSignedIn ? (
+                <Avatar
+                  src={localStorage.getItem("profilePicture")!}
+                  sx={{
+                    width: "32px",
+                    height: "32px",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                    color: "#ffffff",
+                    backgroundColor: "#8ab4f8",
+                  }}
+                ></Avatar>
+              ) : (
+                <button onClick={signInWithGoogle}>Sign In</button>
+              )}
             </IconButton>
           </Tooltip>
         </TooltipElements>
@@ -60,10 +81,6 @@ export default function Home() {
       <div>
         <SearchInput showButtons={true} showText={true} />
       </div>
-      <button onClick={signInWithGoogle}>Sign In</button>
-      <h3>{localStorage.getItem("name")}</h3>
-      <h3>{localStorage.getItem("email")}</h3>
-      <img src={localStorage.getItem("profilePicture")!} />
       <FooterContainer>
         <UpperFooter>Romania</UpperFooter>
         <BottomFooter>
