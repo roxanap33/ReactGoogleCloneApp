@@ -81,3 +81,23 @@ export const SubMenuElement = styled("div")`
     margin-bottom: 15px;
   }
 `;
+
+export const SearchResultContainer = styled("div")`
+  margin-top: 30px;
+  margin-inline-start: 50px;
+`;
+
+export const ResultTitle = styled("h3")`
+  margin: 0;
+  padding: 0;
+  color: #1a0dab;
+`;
+
+export const ResultLink = styled("a")`
+  color: #ffffff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;

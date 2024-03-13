@@ -11,12 +11,13 @@ export const SearchInputContainer = styled("div")`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 14px 0 14px;
-  max-width: 584px;
+  padding: 8px 14px 0 14px;
+  width: 584px;
   border: 1px solid #5f6368;
   border-radius: 300px;
   min-height: 30px;
-  width: 60%;
+  min-width: 250px;
+  box-sizing: border-box;
 `;
 
 export const SearchInputArea = styled("input")`
@@ -80,9 +81,5 @@ export const TextSection = styled("div")`
     padding: 0 3px;
     color: ##8ab4f8;
     text-decoration: none;
-
-    &:visited {
-      color: #c58af9;
-    }
   }
 `;

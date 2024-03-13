@@ -9,11 +9,12 @@ import {
   BottomFooter,
   BottomFooterLeft,
   BottomFooterRight,
-} from "../components/HomeStyles";
+} from "../assets/styles/HomeStyles";
 import { Link } from "react-router-dom";
 import { Avatar, Tooltip, IconButton } from "@mui/material";
 import { Apps } from "@mui/icons-material";
 import SearchInput from "../components/SearchInput";
+import LogoDisplay from "../components/LogoDisplay";
 
 export default function Home() {
   return (
@@ -54,11 +55,11 @@ export default function Home() {
         </TooltipElements>
       </HeaderContainer>
       <HeaderLogoContainer>
-        <img src="google-white-logo.png" alt="google-logo" />
-        <div>
-          <SearchInput showButtons={true} showText={true} />
-        </div>
+        <LogoDisplay />
       </HeaderLogoContainer>
+      <div>
+        <SearchInput showButtons={true} showText={true} />
+      </div>
       <FooterContainer>
         <UpperFooter>Romania</UpperFooter>
         <BottomFooter>
