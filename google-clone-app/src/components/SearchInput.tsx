@@ -13,8 +13,12 @@ import {
 import { Tooltip } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function SearchInput({ showButtons = false, showText = false }) {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function SearchInput({
+  showButtons = false,
+  showText = false,
+  searchedValue = "",
+}) {
+  const [searchTerm, setSearchTerm] = useState(searchedValue);
 
   const navigate = useNavigate();
 

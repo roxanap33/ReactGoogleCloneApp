@@ -9,12 +9,12 @@ import {
   SearchPageHeaderSubMenu,
   SubMenuElement,
 } from "../components/SearchPageStyles";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { Avatar, IconButton, Tooltip } from "@mui/material";
 import { Apps, MoreVert, Settings } from "@mui/icons-material";
 import { db } from "../firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, getDocs } from "firebase/firestore";
 
 interface SearchResult {
   id: string;
@@ -39,9 +39,8 @@ export default function SearchPage() {
         setResults(resultsArray);
       }
     };
-
     fetchResults();
-  }, []);
+  }, [value]);
 
   return (
     <>
@@ -57,7 +56,7 @@ export default function SearchPage() {
               </SearchPageLogo>
             </Link>
             <SearchPageInput>
-              <SearchInput />
+              <SearchInput searchedValue={value ? value : ""} />
             </SearchPageInput>
           </SearchPageHeaderLeft>
           <SearchPageHeaderRight>
