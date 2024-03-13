@@ -25,14 +25,20 @@ interface SearchResult {
   link: string;
 }
 
+interface SubcollectionsNames {
+  name: string;
+}
+
 export default function SearchPage() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchedValue = queryParams.get("key");
   const [results, setResults] = useState<SearchResult[]>([]);
+  const [docNames, setDocNames] = useState<SubcollectionsNames[]>([]);
 
   useEffect(() => {
     fetchResults();
+    fetchDocNames();
   }, [searchedValue]);
 
   const fetchResults = async () => {
@@ -48,6 +54,15 @@ export default function SearchPage() {
       }));
       setResults(resultsArray);
     }
+  };
+
+  const fetchDocNames = async () => {
+    const getDocsNames = await getDocs(collection(db, "results"));
+    const names: SubcollectionsNames[] = getDocsNames.docs.map((doc) => ({
+      name: doc.id as string,
+    }));
+
+    setDocNames(names);
   };
 
   return (

@@ -35,6 +35,7 @@ export const HeaderLogoContainer = styled("div")`
   display: flex;
   margin-top: 10%;
   flex-direction: column;
+
   img {
     height: 92px;
     object-fit: contain;

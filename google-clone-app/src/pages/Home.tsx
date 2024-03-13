@@ -14,8 +14,54 @@ import { Link } from "react-router-dom";
 import { Avatar, Tooltip, IconButton } from "@mui/material";
 import { Apps } from "@mui/icons-material";
 import SearchInput from "../components/SearchInput";
+import { db } from "../firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
+interface LogoData {
+  startDate: string;
+  endDate: string;
+  imagePath: string;
+  description: string;
+}
 
 export default function Home() {
+  const [logo, setLogo] = useState<LogoData[]>([]);
+  const currentDate = new Date().toLocaleDateString();
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      const q = query(collection(db, "results/google-logos/logos"));
+      const getLogoDoc = await getDocs(q);
+      if (!getLogoDoc.empty) {
+        const logosArray: LogoData[] = getLogoDoc.docs.map((doc) => ({
+          startDate: doc.data().startDate as string,
+          endDate: doc.data().endDate as string,
+          imagePath: doc.data().imagePath as string,
+          description: doc.data().description as string,
+        }));
+        setLogo(logosArray);
+      }
+    };
+    fetchLogo();
+  }, [currentDate]);
+
+  const animatedLogos: LogoData[] = [];
+  const basicLogo: LogoData[] = [];
+  logo.forEach((l) => {
+    if (l.startDate !== "" && l.endDate !== "") {
+      const endDate = new Date(l.endDate);
+      const startDate = new Date(l.startDate);
+      const current = new Date(currentDate);
+
+      if (endDate >= current && current >= startDate) {
+        animatedLogos.push(l);
+      }
+    } else {
+      basicLogo.push(l);
+    }
+  });
+  const filteredLogos: LogoData[] =
+    animatedLogos.length === 1 ? animatedLogos : basicLogo;
   return (
     <>
       <HeaderContainer>
@@ -53,12 +99,16 @@ export default function Home() {
           </Tooltip>
         </TooltipElements>
       </HeaderContainer>
-      <HeaderLogoContainer>
-        <img src="google-white-logo.png" alt="google-logo" />
-        <div>
-          <SearchInput showButtons={true} showText={true} />
+      {filteredLogos.map((logo, index) => (
+        <div key={index}>
+          <HeaderLogoContainer>
+            <img src={logo.imagePath} alt={logo.description} />
+          </HeaderLogoContainer>
         </div>
-      </HeaderLogoContainer>
+      ))}
+      <div>
+        <SearchInput showButtons={true} showText={true} />
+      </div>
       <FooterContainer>
         <UpperFooter>Romania</UpperFooter>
         <BottomFooter>
