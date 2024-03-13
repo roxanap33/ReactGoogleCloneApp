@@ -18,6 +18,7 @@ import { Avatar, IconButton, Tooltip } from "@mui/material";
 import { Apps, MoreVert, Settings } from "@mui/icons-material";
 import { db } from "../firebase";
 import { collection, query, getDocs } from "firebase/firestore";
+import LogoDisplay from "../components/LogoDisplay";
 
 interface SearchResult {
   id: string;
@@ -72,7 +73,7 @@ export default function SearchPage() {
           <SearchPageHeaderLeft>
             <Link to="/">
               <SearchPageLogo>
-                <img src="google-white-logo.png" alt="google-logo" />
+                <LogoDisplay />
               </SearchPageLogo>
             </Link>
             <SearchPageInput>
