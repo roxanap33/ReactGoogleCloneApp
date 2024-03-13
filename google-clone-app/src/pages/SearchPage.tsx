@@ -124,7 +124,9 @@ export default function SearchPage() {
             ))
           )
       ) : (
-        <div>Curerently there are no results for your search.</div>
+        <SearchResultContainer>
+          Curerently there are no results for your search.
+        </SearchResultContainer>
       )}
     </>
   );
