@@ -20,14 +20,12 @@ import { db } from "../firebase";
 import { collection, query, getDocs } from "firebase/firestore";
 import LogoDisplay from "../components/LogoDisplay";
 
-interface SearchResult {
-  id: string;
-  title: string;
-  link: string;
+interface ResultMap {
+  [key: string]: string;
 }
-
-interface SubcollectionsNames {
-  name: string;
+interface SearchResult {
+  resultsMap: ResultMap;
+  searchTerm: string;
 }
 
 export default function SearchPage() {
@@ -35,35 +33,22 @@ export default function SearchPage() {
   const queryParams = new URLSearchParams(location.search);
   const searchedValue = queryParams.get("key");
   const [results, setResults] = useState<SearchResult[]>([]);
-  const [docNames, setDocNames] = useState<SubcollectionsNames[]>([]);
 
   useEffect(() => {
     fetchResults();
-    fetchDocNames();
   }, [searchedValue]);
 
   const fetchResults = async () => {
     if (searchedValue) {
-      const q = query(
-        collection(db, `results/${searchedValue}/${searchedValue}`)
-      );
+      const q = query(collection(db, "results"));
       const querySnapshot = await getDocs(q);
       const resultsArray: SearchResult[] = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        title: doc.data().title as string,
-        link: doc.data().link as string,
+        resultsMap: doc.data().resultsMap as ResultMap,
+        searchTerm: doc.data().searchTerm as string,
       }));
+
       setResults(resultsArray);
     }
-  };
-
-  const fetchDocNames = async () => {
-    const getDocsNames = await getDocs(collection(db, "results"));
-    const names: SubcollectionsNames[] = getDocsNames.docs.map((doc) => ({
-      name: doc.id as string,
-    }));
-
-    setDocNames(names);
   };
 
   return (
@@ -125,12 +110,22 @@ export default function SearchPage() {
           <Link to="/more">More</Link>
         </SubMenuElement>
       </SearchPageHeaderSubMenu>
-      {results.map((result) => (
-        <SearchResultContainer key={result.id}>
-          <ResultTitle>{result.title}</ResultTitle>
-          <ResultLink href={result.link}>{result.link}</ResultLink>
-        </SearchResultContainer>
-      ))}
+      {results.some(
+        (r) => r.searchTerm && r.searchTerm.includes(searchedValue!)
+      ) ? (
+        results
+          .filter((r) => r.searchTerm && r.searchTerm.includes(searchedValue!))
+          .map((result) =>
+            Object.entries(result.resultsMap || {}).map(([key, value]) => (
+              <SearchResultContainer key={key}>
+                <ResultTitle>{key}</ResultTitle>
+                <ResultLink href={value}>{value}</ResultLink>
+              </SearchResultContainer>
+            ))
+          )
+      ) : (
+        <div>Curerently there are no results for your search.</div>
+      )}
     </>
   );
 }
