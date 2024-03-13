@@ -8,6 +8,9 @@ import {
   SearchPageInput,
   SearchPageHeaderSubMenu,
   SubMenuElement,
+  SearchResultContainer,
+  ResultTitle,
+  ResultLink,
 } from "../components/SearchPageStyles";
 import { Link, useLocation } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
@@ -19,28 +22,33 @@ import { collection, query, getDocs } from "firebase/firestore";
 interface SearchResult {
   id: string;
   title: string;
+  link: string;
 }
 
 export default function SearchPage() {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const value = queryParams.get("key");
+  const searchedValue = queryParams.get("key");
   const [results, setResults] = useState<SearchResult[]>([]);
 
   useEffect(() => {
-    const fetchResults = async () => {
-      if (value) {
-        const q = query(collection(db, `results/${value}/${value}`));
-        const querySnapshot = await getDocs(q);
-        const resultsArray: SearchResult[] = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          title: doc.data().title as string,
-        }));
-        setResults(resultsArray);
-      }
-    };
     fetchResults();
-  }, [value]);
+  }, [searchedValue]);
+
+  const fetchResults = async () => {
+    if (searchedValue) {
+      const q = query(
+        collection(db, `results/${searchedValue}/${searchedValue}`)
+      );
+      const querySnapshot = await getDocs(q);
+      const resultsArray: SearchResult[] = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        title: doc.data().title as string,
+        link: doc.data().link as string,
+      }));
+      setResults(resultsArray);
+    }
+  };
 
   return (
     <>
@@ -49,14 +57,11 @@ export default function SearchPage() {
           <SearchPageHeaderLeft>
             <Link to="/">
               <SearchPageLogo>
-                <img
-                  src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png"
-                  alt="google-logo"
-                />
+                <img src="google-white-logo.png" alt="google-logo" />
               </SearchPageLogo>
             </Link>
             <SearchPageInput>
-              <SearchInput searchedValue={value ? value : ""} />
+              <SearchInput searchedValue={searchedValue ? searchedValue : ""} />
             </SearchPageInput>
           </SearchPageHeaderLeft>
           <SearchPageHeaderRight>
@@ -104,11 +109,12 @@ export default function SearchPage() {
           <Link to="/more">More</Link>
         </SubMenuElement>
       </SearchPageHeaderSubMenu>
-      <div>
-        {results.map((result, index) => (
-          <div key={index}>{result.title}</div>
-        ))}
-      </div>
+      {results.map((result) => (
+        <SearchResultContainer key={result.id}>
+          <ResultTitle>{result.title}</ResultTitle>
+          <ResultLink href={result.link}>{result.link}</ResultLink>
+        </SearchResultContainer>
+      ))}
     </>
   );
 }
