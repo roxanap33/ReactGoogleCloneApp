@@ -54,9 +54,7 @@ export default function LogoDisplay({}) {
     <>
       {filteredLogos.map((logo, index) => (
         <div key={index}>
-          <HeaderLogoContainer>
-            <img src={logo.imagePath} alt={logo.description} />
-          </HeaderLogoContainer>
+          <img src={logo.imagePath} alt={logo.description} />
         </div>
       ))}
     </>

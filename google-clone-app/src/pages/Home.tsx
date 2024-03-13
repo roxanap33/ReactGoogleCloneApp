@@ -54,7 +54,9 @@ export default function Home() {
           </Tooltip>
         </TooltipElements>
       </HeaderContainer>
-      <LogoDisplay />
+      <HeaderLogoContainer>
+        <LogoDisplay />
+      </HeaderLogoContainer>
       <div>
         <SearchInput showButtons={true} showText={true} />
       </div>
