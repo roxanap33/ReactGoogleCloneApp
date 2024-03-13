@@ -15,7 +15,7 @@ import { Avatar, Tooltip, IconButton } from "@mui/material";
 import { Apps } from "@mui/icons-material";
 import SearchInput from "../components/SearchInput";
 import LogoDisplay from "../components/LogoDisplay";
-
+import { signInWithGoogle } from "../firebase";
 export default function Home() {
   return (
     <>
@@ -60,6 +60,10 @@ export default function Home() {
       <div>
         <SearchInput showButtons={true} showText={true} />
       </div>
+      <button onClick={signInWithGoogle}>Sign In</button>
+      <h3>{localStorage.getItem("name")}</h3>
+      <h3>{localStorage.getItem("email")}</h3>
+      <img src={localStorage.getItem("profilePicture")!} />
       <FooterContainer>
         <UpperFooter>Romania</UpperFooter>
         <BottomFooter>
