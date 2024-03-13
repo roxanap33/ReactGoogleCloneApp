@@ -11,7 +11,7 @@ import {
   SearchResultContainer,
   ResultTitle,
   ResultLink,
-} from "../components/SearchPageStyles";
+} from "../assets/styles/SearchPageStyles";
 import { Link, useLocation } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
 import { Avatar, IconButton, Tooltip } from "@mui/material";

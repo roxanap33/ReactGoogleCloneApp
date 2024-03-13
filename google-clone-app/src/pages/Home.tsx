@@ -9,7 +9,7 @@ import {
   BottomFooter,
   BottomFooterLeft,
   BottomFooterRight,
-} from "../components/HomeStyles";
+} from "../assets/styles/HomeStyles";
 import { Link } from "react-router-dom";
 import { Avatar, Tooltip, IconButton } from "@mui/material";
 import { Apps } from "@mui/icons-material";

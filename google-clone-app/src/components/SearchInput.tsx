@@ -9,7 +9,7 @@ import {
   SearchInputArea,
   TextSection,
   TextSectionContainer,
-} from "./SearchInputStyles";
+} from "../assets/styles/SearchInputStyles";
 import { Tooltip } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
