@@ -6,20 +6,27 @@ import {
   SearchContainer,
   SearchIcon,
   SearchInputContainer,
-  SearchTextArea,
+  SearchInputArea,
   TextSection,
   TextSectionContainer,
 } from "./SearchInputStyles";
 import { Tooltip } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function SearchInput({ showButtons = false, showText = false }) {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function SearchInput({
+  showButtons = false,
+  showText = false,
+  searchedValue = "",
+}) {
+  const [searchTerm, setSearchTerm] = useState(searchedValue);
+
   const navigate = useNavigate();
 
   function handleSearch(event: any) {
     event.preventDefault();
-    navigate(`/search?${searchTerm}`);
+    if (searchTerm) {
+      navigate(`/search?key=${searchTerm}`);
+    }
   }
 
   return (
@@ -28,7 +35,7 @@ export default function SearchInput({ showButtons = false, showText = false }) {
         <SearchContainer>
           <SearchInputContainer>
             <SearchIcon />
-            <SearchTextArea
+            <SearchInputArea
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
             />
