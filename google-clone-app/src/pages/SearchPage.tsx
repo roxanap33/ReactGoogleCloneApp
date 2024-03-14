@@ -83,7 +83,7 @@ export default function SearchPage() {
                 />
               </IconButton>
             </Tooltip>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex", marginBottom: "10px" }}>
               <Authenticate />
             </div>
           </SearchPageHeaderRight>
