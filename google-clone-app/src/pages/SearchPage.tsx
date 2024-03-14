@@ -14,11 +14,12 @@ import {
 } from "../assets/styles/SearchPageStyles";
 import { Link, useLocation } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
-import { Avatar, IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { Apps, MoreVert, Settings } from "@mui/icons-material";
 import { db } from "../firebase";
 import { collection, query, getDocs } from "firebase/firestore";
 import LogoDisplay from "../components/LogoDisplay";
+import Authenticate from "../authentication/Authenticate";
 
 interface ResultMap {
   [key: string]: string;
@@ -82,20 +83,9 @@ export default function SearchPage() {
                 />
               </IconButton>
             </Tooltip>
-            <Tooltip title="Google Account">
-              <Avatar
-                sx={{
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "50%",
-                  cursor: "pointer",
-                  color: "#ffffff",
-                  backgroundColor: "#8ab4f8",
-                }}
-              >
-                RC
-              </Avatar>
-            </Tooltip>
+            <div style={{ display: "flex" }}>
+              <Authenticate />
+            </div>
           </SearchPageHeaderRight>
         </SearchHeaderWrapper>
       </SearhcPageHeaderContainer>

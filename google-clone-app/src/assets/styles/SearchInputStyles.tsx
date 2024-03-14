@@ -70,7 +70,7 @@ export const SearchButtons = styled("button")`
 
   @media (max-width: 480px) {
     padding: 0 8px;
-    min-width: 20px;
+    min-width: 110px;
     font-size: 12px;
     white-space: nowrap;
   }

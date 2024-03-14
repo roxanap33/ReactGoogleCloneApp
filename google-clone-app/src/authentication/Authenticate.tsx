@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { auth, googleProvider } from "../firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { Avatar, Tooltip } from "@mui/material";
@@ -6,6 +6,16 @@ import { SignInButton, SignOutButton } from "../assets/styles/HomeStyles";
 
 export default function Authenticate() {
   const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    checkSignedInState();
+  }, []);
+
+  const checkSignedInState = () => {
+    const signedIn = localStorage.getItem("isSignedIn") === "true";
+    setIsSignedIn(signedIn);
+  };
+
   const signInWithGoogle = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
@@ -15,6 +25,7 @@ export default function Authenticate() {
         localStorage.setItem("name", name);
         localStorage.setItem("email", email);
         localStorage.setItem("profilePicture", profilePicture);
+        localStorage.setItem("isSignedIn", "true");
 
         setIsSignedIn(true);
       })
