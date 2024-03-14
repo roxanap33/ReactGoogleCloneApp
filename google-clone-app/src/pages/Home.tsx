@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   HeaderContainer,
   HeaderLogoContainer,
@@ -11,11 +10,11 @@ import {
   BottomFooterRight,
 } from "../assets/styles/HomeStyles";
 import { Link } from "react-router-dom";
-import { Avatar, Tooltip, IconButton } from "@mui/material";
+import { Tooltip, IconButton } from "@mui/material";
 import { Apps } from "@mui/icons-material";
 import SearchInput from "../components/SearchInput";
 import LogoDisplay from "../components/LogoDisplay";
-
+import Authenticate from "../authentication/Authenticate";
 export default function Home() {
   return (
     <>
@@ -36,22 +35,7 @@ export default function Home() {
               ></Apps>
             </IconButton>
           </Tooltip>
-          <Tooltip title="Google Account">
-            <IconButton>
-              <Avatar
-                sx={{
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "50%",
-                  cursor: "pointer",
-                  color: "#ffffff",
-                  backgroundColor: "#8ab4f8",
-                }}
-              >
-                RC
-              </Avatar>
-            </IconButton>
-          </Tooltip>
+          <Authenticate />
         </TooltipElements>
       </HeaderContainer>
       <HeaderLogoContainer>

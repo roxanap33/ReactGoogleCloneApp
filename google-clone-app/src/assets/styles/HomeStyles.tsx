@@ -105,3 +105,18 @@ export const BottomFooterRight = styled("div")`
     }
   }
 `;
+
+export const SignInButton = styled("div")`
+  button {
+    margin-top: 10px;
+    cursor: pointer;
+  }
+`;
+
+export const SignOutButton = styled("div")`
+  button {
+    margin-top: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+`;
