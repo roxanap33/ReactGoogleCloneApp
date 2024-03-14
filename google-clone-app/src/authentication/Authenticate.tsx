@@ -2,6 +2,7 @@ import { useState } from "react";
 import { auth, googleProvider } from "../firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { Avatar, Tooltip } from "@mui/material";
+import { SignInButton, SignOutButton } from "../assets/styles/HomeStyles";
 
 export default function Authenticate() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -54,7 +55,7 @@ export default function Authenticate() {
               ></Avatar>
             </Tooltip>
             <Tooltip title="Sign Out">
-              <div>
+              <SignOutButton>
                 <button
                   style={{
                     marginTop: "9px",
@@ -65,18 +66,13 @@ export default function Authenticate() {
                 >
                   Sign Out
                 </button>
-              </div>
+              </SignOutButton>
             </Tooltip>
           </>
         ) : (
-          <div>
-            <button
-              style={{ marginTop: "9px", cursor: "pointer" }}
-              onClick={signInWithGoogle}
-            >
-              Sign In
-            </button>
-          </div>
+          <SignInButton>
+            <button onClick={signInWithGoogle}>Sign In</button>
+          </SignInButton>
         )}
       </Tooltip>
     </>

@@ -12,11 +12,10 @@ export const SearchInputContainer = styled("div")`
   align-items: center;
   justify-content: center;
   padding: 8px 14px 0 14px;
-  width: 584px;
+  width: 500px;
   border: 1px solid #5f6368;
   border-radius: 300px;
   min-height: 30px;
-  min-width: 250px;
   box-sizing: border-box;
 `;
 
@@ -60,7 +59,6 @@ export const SearchButtons = styled("button")`
   color: #e8eaed;
   font-family: arial, sans-serif;
   font-size: 14px;
-
   margin: 11px 4px;
   padding: 0 16px;
   line-height: 27px;
@@ -68,6 +66,14 @@ export const SearchButtons = styled("button")`
   min-width: 54px;
   text-align: center;
   cursor: pointer;
+  overflow-wrap: break-word;
+
+  @media (max-width: 480px) {
+    padding: 0 8px;
+    min-width: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
 `;
 
 export const TextSectionContainer = styled("div")`
