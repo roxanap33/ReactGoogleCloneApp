@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   HeaderContainer,
   HeaderLogoContainer,
@@ -11,42 +10,12 @@ import {
   BottomFooterRight,
 } from "../assets/styles/HomeStyles";
 import { Link } from "react-router-dom";
-import { Avatar, Tooltip, IconButton } from "@mui/material";
+import { Tooltip, IconButton } from "@mui/material";
 import { Apps } from "@mui/icons-material";
 import SearchInput from "../components/SearchInput";
 import LogoDisplay from "../components/LogoDisplay";
-import { auth, googleProvider } from "../firebase";
-import { signInWithPopup, signOut } from "firebase/auth";
+import Authenticate from "../authentication/Authenticate";
 export default function Home() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const name: any = result.user.displayName;
-        const email: any = result.user.email;
-        const profilePicture: any = result.user.photoURL;
-        localStorage.setItem("name", name);
-        localStorage.setItem("email", email);
-        localStorage.setItem("profilePicture", profilePicture);
-
-        setIsSignedIn(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const signOutFromGoogle = () => {
-    signOut(auth)
-      .then(() => {
-        localStorage.clear();
-        window.location.reload();
-        console.log("Local storage cleared");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   return (
     <>
       <HeaderContainer>
@@ -66,41 +35,7 @@ export default function Home() {
               ></Apps>
             </IconButton>
           </Tooltip>
-          <Tooltip title="Google Account">
-            {isSignedIn ? (
-              <>
-                <Avatar
-                  src={localStorage.getItem("profilePicture")!}
-                  sx={{
-                    marginTop: "5px",
-                    width: "32px",
-                    height: "32px",
-                    borderRadius: "50%",
-                    cursor: "pointer",
-                    color: "#ffffff",
-                    backgroundColor: "#8ab4f8",
-                  }}
-                ></Avatar>
-                <div>
-                  <button
-                    style={{ marginTop: "10px", marginLeft: "10px" }}
-                    onClick={signOutFromGoogle}
-                  >
-                    Sign Out
-                  </button>
-                </div>
-              </>
-            ) : (
-              <div>
-                <button
-                  style={{ marginTop: "10px" }}
-                  onClick={signInWithGoogle}
-                >
-                  Sign In
-                </button>
-              </div>
-            )}
-          </Tooltip>
+          <Authenticate />
         </TooltipElements>
       </HeaderContainer>
       <HeaderLogoContainer>
